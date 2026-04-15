@@ -1,0 +1,314 @@
+@import "tailwindcss";
+
+:root {
+  /* Abyss v2 — no warm tones, icy premium */
+  --void: #03050c;
+  --abyss: #070b18;
+  --navy: #0b1226;
+  --surface: #12192f;
+  --ink: #1a2342;
+  --primary: #3b5bdb;
+  --electric: #4c8dff;
+  --ice: #a8c5ff;
+  --white-ice: #e8f0ff;
+  --mint: #4ade80;
+  --coral: #ff6b7a;
+
+  --text: #ffffff;
+  --text-mute: rgba(255, 255, 255, 0.58);
+  --text-dim: rgba(255, 255, 255, 0.32);
+  --border: rgba(168, 197, 255, 0.06);
+  --border-bright: rgba(168, 197, 255, 0.14);
+  --border-glow: rgba(76, 141, 255, 0.35);
+
+  --background: var(--void);
+  --foreground: var(--text);
+}
+
+@theme inline {
+  --color-void: var(--void);
+  --color-abyss: var(--abyss);
+  --color-navy: var(--navy);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-primary: var(--primary);
+  --color-electric: var(--electric);
+  --color-ice: var(--ice);
+  --color-white-ice: var(--white-ice);
+  --color-mint: var(--mint);
+  --color-coral: var(--coral);
+  /* gold kept as alias to ice so any residual refs don't break visually */
+  --color-gold: var(--ice);
+  --color-gold-bright: var(--white-ice);
+  --color-blood: var(--coral);
+  --color-neon-green: var(--mint);
+  --color-deep-navy: var(--navy);
+  --color-midnight: var(--ink);
+  --color-royal: var(--primary);
+
+  --color-text: var(--text);
+  --color-text-mute: var(--text-mute);
+  --color-text-dim: var(--text-dim);
+  --color-border: var(--border);
+  --color-border-bright: var(--border-bright);
+  --color-border-glow: var(--border-glow);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html,
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--electric);
+  color: var(--text);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Film grain — very subtle, high freq */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Glass card — darker, more transparent to let background glow through */
+.glass {
+  background: rgba(11, 18, 38, 0.55);
+  backdrop-filter: blur(24px) saturate(1.15);
+  -webkit-backdrop-filter: blur(24px) saturate(1.15);
+  border: 1px solid var(--border-bright);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 0 80px rgba(59, 91, 219, 0.05);
+}
+.glass-strong {
+  background: rgba(11, 18, 38, 0.78);
+  backdrop-filter: blur(28px) saturate(1.2);
+  -webkit-backdrop-filter: blur(28px) saturate(1.2);
+  border: 1px solid var(--border-bright);
+}
+
+/* Container with volumetric glow beneath — Sandra AI look */
+.volumetric {
+  position: relative;
+  isolation: isolate;
+}
+.volumetric::before {
+  content: '';
+  position: absolute;
+  inset: -60px -20px -40px -20px;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse 70% 70% at 50% 50%,
+    rgba(76, 141, 255, 0.45),
+    rgba(76, 141, 255, 0.12) 35%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+/* Ice-gradient display text (FLIP THE 402 treatment like AuthKit) */
+.grad-ice {
+  background: linear-gradient(
+    180deg,
+    #e8f0ff 0%,
+    #b8d1ff 40%,
+    #6ea8ff 75%,
+    #3b5bdb 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.grad-ice-subtle {
+  background: linear-gradient(180deg, #ffffff 0%, #c5d9ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.glow-text {
+  text-shadow: 0 0 24px rgba(168, 197, 255, 0.5);
+}
+
+.ice-text {
+  color: var(--ice);
+  text-shadow: 0 0 18px rgba(168, 197, 255, 0.35);
+}
+/* alias so residual .gold-text doesn't explode */
+.gold-text {
+  color: var(--ice);
+  text-shadow: 0 0 18px rgba(168, 197, 255, 0.35);
+}
+
+/* Gradient divider */
+.divider-glow {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(76, 141, 255, 0.5), transparent);
+}
+
+/* CTA pulse, cooler */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(76, 141, 255, 0.5),
+      0 0 24px rgba(76, 141, 255, 0.45);
+  }
+  50% {
+    box-shadow:
+      0 0 0 14px rgba(76, 141, 255, 0),
+      0 0 40px rgba(76, 141, 255, 0.6);
+  }
+}
+.pulse-glow {
+  animation: pulse-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* GRANTED/DENIED alternating blink — 1.5s per state */
+@keyframes blink-granted {
+  0%, 50% {
+    opacity: 1;
+  }
+  50.01%, 100% {
+    opacity: 0.25;
+  }
+}
+@keyframes blink-denied {
+  0%, 50% {
+    opacity: 0.25;
+  }
+  50.01%, 100% {
+    opacity: 1;
+  }
+}
+.blink-granted {
+  animation: blink-granted 3s steps(1, end) infinite;
+}
+.blink-denied {
+  animation: blink-denied 3s steps(1, end) infinite;
+}
+
+/* Terminal cursor blink */
+@keyframes blink-cursor {
+  0%, 50% {
+    opacity: 1;
+  }
+  50.01%, 100% {
+    opacity: 0;
+  }
+}
+.blink-cursor {
+  animation: blink-cursor 1s steps(1, end) infinite;
+}
+
+/* Slow drift for wireframe elements */
+@keyframes slow-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(10px, -12px, 0) rotate(3deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Wallet adapter overrides — match new palette */
+.wallet-adapter-button {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+}
+.wallet-adapter-button-trigger {
+  background: linear-gradient(180deg, #4c8dff, #2d4bbf) !important;
+  border-radius: 999px !important;
+  padding: 0 14px !important;
+  height: 36px !important;
+  font-size: 12px !important;
+  letter-spacing: 0.02em !important;
+  box-shadow: 0 8px 24px -10px rgba(76, 141, 255, 0.6) !important;
+}
+@media (min-width: 640px) {
+  .wallet-adapter-button-trigger {
+    padding: 0 18px !important;
+    height: 38px !important;
+    font-size: 13px !important;
+  }
+}
+.wallet-adapter-button-trigger:hover {
+  background: linear-gradient(180deg, #6ea8ff, #4c8dff) !important;
+}
+.wallet-adapter-modal-wrapper {
+  background: var(--navy) !important;
+  border: 1px solid var(--border-bright) !important;
+}
