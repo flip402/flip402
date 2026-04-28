@@ -1,12 +1,12 @@
 # FLIP402
 
+**Live:** [flip402.xyz](https://flip402.xyz) · **Token:** [F9nqmfbosyPiNwVYd5SfRwWAVJ5csVRGYGJQ4Cwtpump](https://pump.fun/coin/F9nqmfbosyPiNwVYd5SfRwWAVJ5csVRGYGJQ4Cwtpump) · **Twitter:** [@flip402sol](https://x.com/flip402sol)
+
 > HTTP 402 — Payment Required.
 > For thirty years, this status code did nothing.
 > Then x402 arrived.
 
 FLIP402 is an onchain coin flip experiment built on the x402 payment primitive. Pick a number from 1 to 402. Pay the protocol. Beat the odds.
-
-**Live:** [flip402.com](https://flip402.com) · **Token:** [$FLIP402](https://pump.fun)
 
 ---
 
